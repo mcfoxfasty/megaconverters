@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Icon from './Icon';
 import { navigate } from '../utils/navigation';
@@ -27,7 +28,11 @@ const QuickActionCard: React.FC<QuickActionCardProps> = ({ icon, title, descript
   </a>
 );
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  onSearch: (query: string) => void;
+}
+
+const Hero: React.FC<HeroProps> = ({ onSearch }) => {
   const actions = [
     { icon: 'file', title: 'File Conversion', description: 'Convert common file formats like images, documents, audio...', href: '/image-converter' },
     { icon: 'ruler', title: 'Unit Conversion', description: 'Convert between different units of measurement, length, weight...', href: '/unit-converter' },
@@ -58,6 +63,7 @@ const Hero: React.FC = () => {
               placeholder="Search for a converter (e.g., 'PDF to Word', 'JPG to PNG')..."
               className="block w-full bg-dark-card border border-dark-border rounded-lg py-3.5 pl-12 pr-4 text-light-text placeholder-medium-text focus:ring-2 focus:ring-primary focus:border-primary transition-colors shadow-sm"
               aria-label="Search for a converter"
+              onChange={(e) => onSearch(e.target.value)}
             />
           </div>
         </div>

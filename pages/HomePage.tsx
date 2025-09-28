@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import Layout from '../components/Layout';
 import Hero from '../components/Hero';
 import FileUpload from '../components/FileUpload';
@@ -7,15 +8,17 @@ import SupportedTypes from '../components/SupportedTypes';
 import WhyChooseUs from '../components/WhyChooseUs';
 
 const HomePage: React.FC = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <Hero />
+        <Hero onSearch={setSearchQuery} />
         <div className="mt-12">
           <FileUpload />
         </div>
         <div className="mt-20">
-          <ConverterGrid />
+          <ConverterGrid searchQuery={searchQuery} />
         </div>
         <div className="mt-24">
           <SupportedTypes />

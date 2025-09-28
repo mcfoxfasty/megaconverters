@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
@@ -7,6 +8,10 @@ import PlaceholderPage from './pages/PlaceholderPage';
 import ContactPage from './pages/ContactPage';
 import ImageConverterPage from './pages/ImageConverterPage';
 import ToolPlaceholderPage from './pages/ToolPlaceholderPage';
+import PdfToJpgPage from './pages/PdfToJpgPage';
+import DocxToPdfPage from './pages/DocxToPdfPage';
+import PngToJpgPage from './pages/PngToJpgPage';
+import ConvertersPage from './pages/ConvertersPage';
 
 // Guide Pages
 import PdfToWordGuidePage from './pages/guides/PdfToWordGuidePage';
@@ -56,8 +61,16 @@ const App: React.FC = () => {
         return <PlaceholderPage title="Blog" />;
       case '/contact':
           return <ContactPage />;
+      case '/converters':
+        return <ConvertersPage />;
       case '/image-converter':
         return <ImageConverterPage />;
+      case '/pdf-to-jpg':
+        return <PdfToJpgPage />;
+      case '/docx-to-pdf':
+        return <DocxToPdfPage />;
+      case '/png-to-jpg':
+        return <PngToJpgPage />;
       case '/document-converter':
         return <ToolPlaceholderPage title="Document Converter" />;
       case '/audio-converter':

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Icon from './Icon';
 import { navigate } from '../utils/navigation';
@@ -29,7 +30,11 @@ const ConverterCard: React.FC<ConverterCardProps> = ({ icon, title, description,
   </div>
 );
 
-const ConverterGrid: React.FC = () => {
+interface ConverterGridProps {
+  searchQuery: string;
+}
+
+const ConverterGrid: React.FC<ConverterGridProps> = ({ searchQuery }) => {
   const converters = [
     { icon: 'image', title: 'Image Converter', description: 'Convert and optimize images. Formats: WEBP, JPG, PNG...', color: '#60A5FA', href: '/image-converter' },
     { icon: 'document', title: 'Document Converter', description: 'Convert document formats with average quality output.', color: '#34D399', href: '/document-converter' },
@@ -43,9 +48,14 @@ const ConverterGrid: React.FC = () => {
     { icon: 'scissors', title: 'SVG Cut & Scrape', description: 'Extract designs from business cards, logos, magazines.', color: '#E879F9', href: '/svg-cut-scrape' },
   ];
 
+  const filteredConverters = converters.filter(converter =>
+    converter.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    converter.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-      {converters.map(converter => <ConverterCard key={converter.title} {...converter} />)}
+      {filteredConverters.map(converter => <ConverterCard key={converter.title} {...converter} />)}
     </div>
   );
 };
