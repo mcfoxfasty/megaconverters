@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Layout from '../components/Layout';
 import Icon from '../components/Icon';
@@ -34,8 +35,12 @@ const AboutPage: React.FC = () => {
                         That's why we've engineered our entire suite of converters to run directly in your browser. Your files are never uploaded to our servers, ensuring that what's yours stays yours.
                     </p>
                 </div>
-                <div className="bg-dark-card p-8 rounded-xl border border-dark-border">
-                    <img src="https://i.imgur.com/uS83b6W.png" alt="Illustration of secure data processing" className="rounded-lg" />
+                <div className="bg-dark-card p-8 rounded-xl border border-dark-border flex items-center justify-center">
+                    <Icon name="logo" className="w-16 h-16" />
+                    <h2 className="text-4xl font-bold text-white tracking-wide ml-4">
+                        <span style={{ color: '#EB4300' }}>M</span>ega
+                        <span style={{ color: '#F8BD00' }}>C</span>onverters
+                    </h2>
                 </div>
             </div>
 

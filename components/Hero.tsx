@@ -1,6 +1,7 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import Icon from './Icon';
+import ConverterGrid from './ConverterGrid';
 import { navigate } from '../utils/navigation';
 
 interface QuickActionCardProps {
@@ -28,11 +29,9 @@ const QuickActionCard: React.FC<QuickActionCardProps> = ({ icon, title, descript
   </a>
 );
 
-interface HeroProps {
-  onSearch: (query: string) => void;
-}
+const Hero: React.FC = () => {
+  const [searchQuery, setSearchQuery] = useState('');
 
-const Hero: React.FC<HeroProps> = ({ onSearch }) => {
   const actions = [
     { icon: 'file', title: 'File Conversion', description: 'Convert common file formats like images, documents, audio...', href: '/image-converter' },
     { icon: 'ruler', title: 'Unit Conversion', description: 'Convert between different units of measurement, length, weight...', href: '/unit-converter' },
@@ -63,16 +62,24 @@ const Hero: React.FC<HeroProps> = ({ onSearch }) => {
               placeholder="Search for a converter (e.g., 'PDF to Word', 'JPG to PNG')..."
               className="block w-full bg-dark-card border border-dark-border rounded-lg py-3.5 pl-12 pr-4 text-light-text placeholder-medium-text focus:ring-2 focus:ring-primary focus:border-primary transition-colors shadow-sm"
               aria-label="Search for a converter"
-              onChange={(e) => onSearch(e.target.value)}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
         </div>
         
-        <h2 className="text-lg font-semibold text-light-text mb-4">Quick File Upload</h2>
-        <p className="text-sm text-medium-text mb-6">Or drag and drop files directly for supported conversion</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
-          {actions.map(action => <QuickActionCard key={action.title} {...action} />)}
-        </div>
+        {searchQuery ? (
+          <div className="mt-8">
+            <ConverterGrid searchQuery={searchQuery} />
+          </div>
+        ) : (
+          <>
+            <h2 className="text-lg font-semibold text-light-text mb-4">Quick File Upload</h2>
+            <p className="text-sm text-medium-text mb-6">Or drag and drop files directly for supported conversion</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+              {actions.map(action => <QuickActionCard key={action.title} {...action} />)}
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

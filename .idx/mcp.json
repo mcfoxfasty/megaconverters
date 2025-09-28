@@ -18,6 +18,10 @@
         "--only",
         "auth,firestore"
       ]
+    },
+    "playwright mcp": {
+      "command": "",
+      "args": []
     }
   }
 }
