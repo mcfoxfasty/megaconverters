@@ -3,8 +3,12 @@ import Icon from './Icon';
 
 const ScrollToTopButton: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
-  // Show button when page is scrolled down
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const toggleVisibility = () => {
     if (window.pageYOffset > 300) {
       setIsVisible(true);
@@ -13,22 +17,25 @@ const ScrollToTopButton: React.FC = () => {
     }
   };
 
-  // Set up event listener for scroll
   useEffect(() => {
-    window.addEventListener('scroll', toggleVisibility);
+    if (isClient) {
+      window.addEventListener('scroll', toggleVisibility);
+      return () => {
+        window.removeEventListener('scroll', toggleVisibility);
+      };
+    }
+  }, [isClient]);
 
-    return () => {
-      window.removeEventListener('scroll', toggleVisibility);
-    };
-  }, []);
-
-  // Function to scroll to top smoothly
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
   };
+
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <button
