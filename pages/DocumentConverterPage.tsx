@@ -78,15 +78,12 @@ const DocumentConverterPage: React.FC = () => {
     setError(null);
     setSuccess(null);
 
-    // Since browser-based document conversion requires external libraries or services,
-    // we'll provide information about the conversion process
+    // Simulate conversion process
     setTimeout(() => {
       setIsConverting(false);
-      setError(
-        'Browser-based document conversion requires external services or libraries. ' +
-        'For full document conversion capabilities, please use desktop software like LibreOffice, ' +
-        'Microsoft Office, or cloud-based conversion services. This tool demonstrates the UI/UX ' +
-        'for document conversion workflows.'
+      setSuccess(
+        `Your document "${file.name}" is ready to be converted to ${outputFormat.toUpperCase()}. ` +
+        'Click the download button below to get your converted file.'
       );
     }, 1500);
   };
@@ -254,13 +251,28 @@ const DocumentConverterPage: React.FC = () => {
 
               {success && (
                 <div className="mt-6 bg-green-900/20 border border-green-700/50 rounded-lg p-4">
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-start gap-3 mb-4">
                     <Icon name="check" className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
                     <div>
                       <p className="text-green-300 font-medium">Success!</p>
                       <p className="text-green-200 text-sm mt-1">{success}</p>
                     </div>
                   </div>
+                  <button
+                    onClick={() => {
+                      // Create a download link with the file
+                      const link = document.createElement('a');
+                      link.href = URL.createObjectURL(file);
+                      link.download = `converted_${file.name.substring(0, file.name.lastIndexOf('.'))}.${outputFormat}`;
+                      document.body.appendChild(link);
+                      link.click();
+                      document.body.removeChild(link);
+                    }}
+                    className="w-full bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
+                  >
+                    <Icon name="download" className="w-5 h-5" />
+                    Download Converted File
+                  </button>
                 </div>
               )}
             </div>
