@@ -7,6 +7,7 @@ import PrivacyPage from './pages/PrivacyPage';
 import PlaceholderPage from './pages/PlaceholderPage';
 import ContactPage from './pages/ContactPage';
 import ImageConverterPage from './pages/ImageConverterPage';
+import DocumentConverterPage from './pages/DocumentConverterPage';
 import ToolPlaceholderPage from './pages/ToolPlaceholderPage';
 import PdfToJpgPage from './pages/PdfToJpgPage';
 import DocxToPdfPage from './pages/DocxToPdfPage';
@@ -72,7 +73,7 @@ const App: React.FC = () => {
       case '/png-to-jpg':
         return <PngToJpgPage />;
       case '/document-converter':
-        return <ToolPlaceholderPage title="Document Converter" />;
+        return <DocumentConverterPage />;
       case '/audio-converter':
         return <ToolPlaceholderPage title="Audio Converter" />;
       case '/archive-converter':
