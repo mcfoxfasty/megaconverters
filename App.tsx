@@ -72,23 +72,23 @@ const App: React.FC = () => {
       case '/png-to-jpg':
         return <PngToJpgPage />;
       case '/document-converter':
-        return <ToolPlaceholderPage title="Document Converter" />;
+        return <DocumentConverterPage />;
       case '/audio-converter':
-        return <ToolPlaceholderPage title="Audio Converter" />;
+        return <AudioConverterPage />;
       case '/archive-converter':
-        return <ToolPlaceholderPage title="Archive Converter" />;
+        return <ArchiveConverterPage />;
       case '/spreadsheet-converter':
-        return <ToolPlaceholderPage title="Spreadsheet Converter" />;
+        return <SpreadsheetConverterPage />;
       case '/unit-converter':
-        return <ToolPlaceholderPage title="Unit Converter" />;
+        return <UnitConverterPage />;
       case '/digital-converter':
-        return <ToolPlaceholderPage title="Digital Converter" />;
+        return <DigitalConverterPage />;
       case '/qr-barcode-generator':
-        return <ToolPlaceholderPage title="QR & Barcode Generator" />;
+        return <QRBarcodeGeneratorPage />;
       case '/image-scraper':
-        return <ToolPlaceholderPage title="Website Image Scraper" />;
+        return <WebsiteImageScraperPage />;
       case '/svg-cut-scrape':
-        return <ToolPlaceholderPage title="SVG Cut & Scrape" />;
+        return <SVGCutScrapePage />;
 
       // Guide Pages
       case '/pdf-to-word-guide':
