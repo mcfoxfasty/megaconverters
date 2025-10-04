@@ -18,8 +18,90 @@ const UnitConverterPage: React.FC = () => {
     speed: { name: 'Speed', units: ['meters/second', 'kilometers/hour', 'miles/hour', 'feet/second', 'knots'] }
   };
 
+  const conversionFactors: any = {
+    length: {
+      meters: 1,
+      feet: 3.28084,
+      inches: 39.3701,
+      kilometers: 0.001,
+      miles: 0.000621371,
+      centimeters: 100,
+      millimeters: 1000,
+      yards: 1.09361
+    },
+    weight: {
+      kilograms: 1,
+      pounds: 2.20462,
+      ounces: 35.274,
+      grams: 1000,
+      tons: 0.001,
+      milligrams: 1000000
+    },
+    temperature: {
+      // Special case, handled separately
+    },
+    volume: {
+      liters: 1,
+      gallons: 0.264172,
+      milliliters: 1000,
+      'cubic meters': 0.001,
+      'cubic feet': 0.0353147,
+      cups: 4.22675,
+      pints: 2.11338,
+      quarts: 1.05669
+    },
+    area: {
+      'square meters': 1,
+      'square feet': 10.7639,
+      'square kilometers': 0.000001,
+      acres: 0.000247105,
+      hectares: 0.0001
+    },
+    speed: {
+      'meters/second': 1,
+      'kilometers/hour': 3.6,
+      'miles/hour': 2.23694,
+      'feet/second': 3.28084,
+      knots: 1.94384
+    }
+  };
+
   const handleConvert = () => {
-    setOutputValue('Conversion feature coming soon!');
+    if (!inputValue || isNaN(parseFloat(inputValue))) {
+      setOutputValue('Please enter a valid number');
+      return;
+    }
+
+    const value = parseFloat(inputValue);
+
+    // Special handling for temperature
+    if (category === 'temperature') {
+      let result: number;
+      if (fromUnit === 'celsius' && toUnit === 'fahrenheit') {
+        result = (value * 9/5) + 32;
+      } else if (fromUnit === 'celsius' && toUnit === 'kelvin') {
+        result = value + 273.15;
+      } else if (fromUnit === 'fahrenheit' && toUnit === 'celsius') {
+        result = (value - 32) * 5/9;
+      } else if (fromUnit === 'fahrenheit' && toUnit === 'kelvin') {
+        result = (value - 32) * 5/9 + 273.15;
+      } else if (fromUnit === 'kelvin' && toUnit === 'celsius') {
+        result = value - 273.15;
+      } else if (fromUnit === 'kelvin' && toUnit === 'fahrenheit') {
+        result = (value - 273.15) * 9/5 + 32;
+      } else {
+        result = value; // Same unit
+      }
+      setOutputValue(result.toFixed(2));
+      return;
+    }
+
+    // Convert to base unit first, then to target unit
+    const factors = conversionFactors[category];
+    const baseValue = value / factors[fromUnit];
+    const result = baseValue * factors[toUnit];
+    
+    setOutputValue(result.toFixed(6).replace(/\.?0+$/, ''));
   };
 
   return (

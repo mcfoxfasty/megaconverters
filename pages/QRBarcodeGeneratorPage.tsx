@@ -84,12 +84,30 @@ const QRBarcodeGeneratorPage: React.FC = () => {
             Generate {codeType === 'qr' ? 'QR Code' : 'Barcode'}
           </button>
 
+          {error && (
+            <div className="mt-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
+              <p className="text-red-400 text-center">{error}</p>
+            </div>
+          )}
+
           {generatedCode && (
             <div className="mt-8 pt-6 border-t border-dark-border">
               <div className="bg-white p-8 rounded-lg flex items-center justify-center min-h-[200px]">
-                <p className="text-slate-800 font-semibold">{generatedCode}</p>
+                <canvas ref={canvasRef} />
               </div>
-              <button className="mt-4 w-full bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
+              <p className="text-center text-green-400 mt-2">{generatedCode}</p>
+              <button 
+                onClick={() => {
+                  const canvas = canvasRef.current;
+                  if (canvas) {
+                    const link = document.createElement('a');
+                    link.download = `${codeType === 'qr' ? 'qrcode' : 'barcode'}.png`;
+                    link.href = canvas.toDataURL();
+                    link.click();
+                  }
+                }}
+                className="mt-4 w-full bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
+              >
                 <div className="flex items-center justify-center gap-2">
                   <Icon name="download" className="w-5 h-5" />
                   Download Image
